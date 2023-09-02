@@ -9,16 +9,22 @@ public class MonsterMove : MonoBehaviour
     public float moveSpeed;
     private void FixedUpdate()
     {
+        if (GameManager.instance.Pause)
+        {
+            return;
+        }
+
         bool timeToMove = MonsterJudgeZone.Instance.isInMoveZone;
         bool timeToAttack = MonsterJudgeZone.Instance.isInAttackZone;
 
         player = MonsterJudgeZone.Instance.objectInZone;
 
+        this.transform.up = LookAtPlayer();
+
         if (timeToMove == true && timeToAttack == false)
         {
-            this.transform.up = LookAtPlayer();
             this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, moveSpeed*Time.deltaTime);
-            Debug.Log("moving");
+            //Debug.Log("moving");
         }
         else
         {
