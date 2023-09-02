@@ -16,26 +16,28 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
+        PauseButton();
+
         if (GameManager.instance.Pause)
         {
-            Move();
+
         }
         else if (!GameManager.instance.Pause)
         {
             Shoot();
-            PauseButton();
         }
 
     }
     void FixedUpdate()
     {
+        Move();
         if (GameManager.instance.Pause)
         {
 
         }
         else if (!GameManager.instance.Pause)
         {
-            Move();
+
         }
 
 
@@ -48,6 +50,7 @@ public class PlayerMove : MonoBehaviour
                 GameManager.instance.Pause = false;
             else
                 GameManager.instance.Pause = true;
+            Debug.Log("GameManager" + GameManager.instance.Pause);
         }
 
     }

@@ -16,8 +16,16 @@ public class Gun : MonoBehaviour
     }
     void Update()
     {
-        FaceToMousePoint();
-        CoolDown();
+        if (GameManager.instance.Pause)
+        {
+
+        }
+        else if (!GameManager.instance.Pause)
+        {
+            FaceToMousePoint();
+            CoolDown();
+        }
+
     }
     void FaceToMousePoint()
     {
