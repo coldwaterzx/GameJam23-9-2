@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField] private float speed;
+    [SerializeField] private Vector2 movementDirection = Vector2.up;
 
     void Awake()
     {
@@ -20,9 +22,20 @@ public class PlayerMove : MonoBehaviour
     {
         float Horizontal = Input.GetAxis("Horizontal");
         float Vetical = Input.GetAxis("Vertical");
-
-        Vector2 move = new Vector2(Horizontal, Vetical) * Time.deltaTime;
-
+        Vector2 move = new Vector2(Horizontal, Vetical) * speed * Time.deltaTime;
         rb.velocity = move;
+
+        if (move != Vector2.zero)
+        {
+            movementDirection = move.normalized;
+        }
+        // 
     }
+    void FaceForward()
+    {
+        float angle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+  
+
 }
