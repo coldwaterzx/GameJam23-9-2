@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public int GameLevel;
 
     public bool Pause;
     void Awake()
@@ -15,7 +16,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Pause = false;
+        GameLevel = 0;
     }
 
-  
+
 }
