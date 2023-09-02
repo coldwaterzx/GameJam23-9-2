@@ -4,34 +4,50 @@ using UnityEngine;
 
 public class MonsterJudgeZone : MonoBehaviour
 {
+    #region Instance
     public static MonsterJudgeZone Instance { get; set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    #endregion
 
     [SerializeField] private GameObject Mosnter;
     [SerializeField] private GameObject moveJudgePosition;
     [SerializeField] private GameObject attackJudgePosition;
-    [SerializeField] private GameObject[] objectInZone;
+    [SerializeField] private Transform monsterRotate;
 
-    private bool isInMoveZone;
-    private bool isInAttackZone;
+    public GameObject objectInZone;
+    public bool isInMoveZone;
+    public bool isInAttackZone;
+
+    #region UnityThings
+    private void Start()
+    {
+        isInMoveZone = false;
+        isInAttackZone = false;
+    }
     private void Update()
     {
-        objectInZone = GameObject.FindGameObjectsWithTag("Player");
+        objectInZone = GameObject.FindGameObjectWithTag("Player");
+        isInMoveZone = MovementZone();
+        isInAttackZone = AttackZone();
     }
     private void FixedUpdate()
     {
-        isInMoveZone = MovementZone();
-        isInAttackZone = AttackZone();
-
-        MonsterAction(isInMoveZone, isInAttackZone);
+        //MonsterAction(isInMoveZone, isInAttackZone);
     }
+    #endregion
 
-    private void MonsterAction(bool moveJudge,bool attackJudge)
+    //測試用
+    private void MonsterAction(bool moveJudge, bool attackJudge)
     {
-        if(moveJudge == true&&attackJudge == false)
+        if (moveJudge == true && attackJudge == false)
         {
             Debug.Log("Moving");
         }
-        else if(moveJudge == true && attackJudge == true)
+        else if (moveJudge == true && attackJudge == true)
         {
             Debug.Log("Attacking");
         }
@@ -42,22 +58,19 @@ public class MonsterJudgeZone : MonoBehaviour
         Vector3 moveJudgeVector = moveJudgePosition.transform.position;
         float moveJudgeZone = Vector3.Distance(monsterVector, moveJudgeVector);
 
-        foreach (GameObject player in objectInZone)
-        {
-            // 計算玩家與moveJudgeVector的距離
-            float playerDistance = Vector3.Distance(player.transform.position, monsterVector);
+        // 計算玩家與moveJudgeVector的距離
+        float playerDistance = Vector3.Distance(objectInZone.transform.position, monsterVector);
 
-            // 如果玩家距離在moveJudgeZone內，則執行操作
-            if (moveJudgeZone >= playerDistance)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        // 如果玩家距離在moveJudgeZone內，則執行操作
+        if (moveJudgeZone >= playerDistance)
+        {
+            return true;
         }
-        return false;
+        else
+        {
+
+            return false;
+        }
     }
     private bool AttackZone()
     {
@@ -65,22 +78,18 @@ public class MonsterJudgeZone : MonoBehaviour
         Vector3 attackJudgeVector = attackJudgePosition.transform.position;
         float attackJudgeZone = Vector3.Distance(monsterVector, attackJudgeVector);
 
-        foreach (GameObject player in objectInZone)
-        {
-            // 計算玩家與moveJudgeVector的距離
-            float playerDistance = Vector3.Distance(player.transform.position, monsterVector);
+        // 計算玩家與moveJudgeVector的距離
+        float playerDistance = Vector3.Distance(objectInZone.transform.position, monsterVector);
 
-            // 如果玩家距離在moveJudgeZone內，則執行操作
-            if (attackJudgeZone >= playerDistance)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        // 如果玩家距離在moveJudgeZone內，則執行操作
+        if (attackJudgeZone >= playerDistance)
+        {
+            return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
     private void OnDrawGizmos()
     {
