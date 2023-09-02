@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager manager;
+    public static GameManager instance;
 
     public bool Pause;
     void Awake()
     {
-        if (manager == null)
-            manager = this;
+        if (instance == null)
+            instance = this;
     }
     void Start()
     {

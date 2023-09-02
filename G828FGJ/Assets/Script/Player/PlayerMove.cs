@@ -16,13 +16,41 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
-        Shoot();
+        if (GameManager.instance.Pause)
+        {
+            Move();
+        }
+        else if (!GameManager.instance.Pause)
+        {
+            Shoot();
+            PauseButton();
+        }
+
     }
     void FixedUpdate()
     {
-        Move();
-    }
+        if (GameManager.instance.Pause)
+        {
 
+        }
+        else if (!GameManager.instance.Pause)
+        {
+            Move();
+        }
+
+
+    }
+    void PauseButton()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.instance.Pause)
+                GameManager.instance.Pause = false;
+            else
+                GameManager.instance.Pause = true;
+        }
+
+    }
     void Move()
     {
         float Horizontal = Input.GetAxis("Horizontal");
@@ -47,6 +75,6 @@ public class PlayerMove : MonoBehaviour
             gun.Shoot();
     }
 
-
-
 }
+
+
