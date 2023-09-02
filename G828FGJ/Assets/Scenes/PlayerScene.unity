@@ -252,6 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fc7019b7dc6054a9ce7ab761511b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bullet: {fileID: 71650913376753843, guid: 19a75ba50e90b614fb5414c16f3b0f3c, type: 3}
+  shootPoint: {fileID: 1934255973}
+  coolTime: 0.5
 --- !u!1 &1547282514
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +353,7 @@ GameObject:
   - component: {fileID: 1551422014}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,7 +533,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 132
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
