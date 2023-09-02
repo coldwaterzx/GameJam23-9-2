@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Rigidbody2D rb;
+
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        Move();
     }
-    void Move(){
+
+    void Move()
+    {
         float Horizontal = Input.GetAxis("Horizontal");
         float Vetical = Input.GetAxis("Vertical");
 
-        Vector2 move = new Vector2(Horizontal,Vetical)*Time.deltaTime;
+        Vector2 move = new Vector2(Horizontal, Vetical) * Time.deltaTime;
+
+        rb.velocity = move;
     }
 }
